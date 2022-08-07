@@ -1,0 +1,35 @@
+Nuevo proyecto
+
+- Te paso acá el nuevo proyecto
+- Use assets del store. En vez de trabajar sobre una idea y buscar assets hago un juego con lo que hay. Si en 10/15 minutos no se encuentra lo que busco descarto y hago con lo que hay. En e anterior perdi mucho tiemo
+- IMPORTANTE: Usa CINEMACHINE y para hacerlo andar tengo que instalarlo a m,ano luego de importar el paquete. En la entrega de cámaras me paso lo mismo no se si es normal o tengo algo masl configurado
+
+- Escenas
+	"Menu": Menu principal
+	"LVL 1": Primera pantalla con el singleton
+	"LVL 2": Mismo terrain pero de noche. Se accede ya sea cargando con letras K y L (para probar directamente el Singleton de la primera pantalla) o llegando al potal (partículas) del fondo
+		LVL 2 no copia todos los childs del singleton de LVL 1. Falta agrega una lógica para que si se dispara alguna de las escenas al inicio lo ignore y vaya al menu que va a ser el punto de partida
+		Todas las escenas tendran una secuencia lineal en el final. Por eso no vale la pena instanciar todos los childs del GM en las pantallas que no sean el lvl 1
+
+Controles: 
+Camina con AWSD o cursor keys 
+Left Shift + dirección corre
+Space ataca
+P: Pausa el juego
+Escape vuelve al menu (Pantalla de advertencia Y/N. Si es Y recarga escena)
+
+Deudas: 
+Sigo debiendo implementar algun raycast. 
+Alguna lista o array
+
+Para la proxima entrega voy a modificar SlimeMovement.cs para tener una clase EnemyMovement y luego heredar SlimeMovement y ShelllMovement (en los prefabs tengo un Shell azyl tipo Mario como enemigo)
+Es bastante basico, por eso te consulto si t parece que ves algo mas que peuda agregar
+
+
+
+	
+- En el repo esta el proyecto formal. Te paso el link para el package en mi drive por si hay algun problema
+
+
+
+https://drive.google.com/drive/folders/10DLRBtY4J57C4MmN1jU567-EwiEtpmjg?usp=sharing
