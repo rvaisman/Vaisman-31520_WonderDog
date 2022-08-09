@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI PausaTextMesh;
     public TextMeshProUGUI SalirMenuTextMesh;
     public TextMeshProUGUI GameOverText;
+    public TextMeshProUGUI GoldText;
     public Slider saludPlayer;
     public int score;
+    public int gold;
     
     public enum armaActual 
     {
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
         vida = 1000;
         score = 0;
         timeToGo = 8f;
+        gold = 0;
         
     }
 
@@ -212,7 +215,7 @@ public class GameManager : MonoBehaviour
         ChequearSalirMenu();
         updateVida();
         ResetearJuego();
-
+        GoldText.text   = " Gold: " + gold.ToString();
 
         if (Input.GetKey(KeyCode.L))
         {

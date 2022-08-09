@@ -1,3 +1,5 @@
+EDIT 9/8/22: Este es el texto que subi el sabado pero no llegue a entregar en la plataforma. Le agrego los edits a los cambios para esta entrega
+
 Nuevo proyecto
 
 - Te paso acá el nuevo proyecto
@@ -26,6 +28,10 @@ Para la proxima entrega voy a modificar SlimeMovement.cs para tener una clase En
 Es bastante basico, por eso te consulto si t parece que ves algo mas que peuda agregar
 
 
+EDIT 9/8/22: SE Implemento la herencia. Enemymovement es la clase padre. SlimeMovement asi como ShellMovement heredan de EnemyMovement aunque solo se usa Slime ya que los shells no estan implementados aun
+Se agregan modenas con scriptable objects
+
+
 
 	
 - En el repo esta el proyecto formal. Te paso el link para el package en mi drive por si hay algun problema
@@ -33,3 +39,5 @@ Es bastante basico, por eso te consulto si t parece que ves algo mas que peuda a
 
 
 https://drive.google.com/drive/folders/10DLRBtY4J57C4MmN1jU567-EwiEtpmjg?usp=sharing
+
+EDIT 9/8/22: Mantengo el mismo link del drive, solo dejo el ultimo package. En git dejo todos mientras me deje subir

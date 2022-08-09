@@ -2,39 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeMovement : MonoBehaviour
+public class SlimeMovement : EnemyMovement
 {
-    public Transform player;
-    public Animator _enemigoAnim;
-    public GameObject _playerObj;
-    float speed = 2f;
 
-    private void Awake()
+
+    float cuentaRegresiva = 4;
+
+    public SlimeMovement()
     {
-        _playerObj = GameObject.FindWithTag("Player");
-        
-    }
-    void Mirar()
-    {
-
-        //Vector3 direccionMirar = _playerObj.transform.position - transform.position; 
-        transform.LookAt(_playerObj.transform);
-        //transform.rotation = Quaternion.LookRotation(direccionMirar);
-
-        //Debug.Log("X Euler " + player.rotation.x + " / Y Euler " + player.rotation.y + " / Z Euler " + player.rotation.z);
-
+        speed = 2.5f; 
     }
 
-    float ChequearDistancia()
-    {
-
-        float dist = Vector3.Distance(transform.position, _playerObj.transform.position);
-        //Debug.Log(dist);
-        return dist;
-
-    }
-
-    void SeguirJugador()
+    public void SeguirJugador()
     {
         _enemigoAnim.SetBool("isGolpeado", false);
         Mirar();
@@ -47,8 +26,11 @@ public class SlimeMovement : MonoBehaviour
 
     }
 
-    void WalkAround()
+    public void WalkAround()
     {
+        float randomTime = Random.Range(3f, 6f);
+        
+
         Ray myRay = new Ray(transform.position, transform.forward);
         Debug.DrawRay(transform.position, new Vector3(0, 0, 3), Color.red);
         //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -58,13 +40,32 @@ public class SlimeMovement : MonoBehaviour
         _enemigoAnim.SetBool("isAttackingFar", false);
         _enemigoAnim.SetBool("isWalking", true);
         transform.Translate(new Vector3(0, 0, 1) * (speed * 0.75f) * Time.deltaTime);
-
+        
+        if (cuentaRegresiva <= 0)
+        {
+            cuentaRegresiva = randomTime;
+            Invoke("RandomTurn", randomTime);
+        } else
+        {
+            cuentaRegresiva -= Time.deltaTime;
+        }
+        
 
         
 
 
     }
-    void AtacarJugadorCerca()
+
+    public void RandomTurn ()
+    {
+
+        
+        float randomGiro = Random.Range(135f, -135f);
+        transform.Rotate(0, randomGiro, 0);
+
+
+    }
+    public void AtacarJugadorCerca()
     {
         Mirar();
         _enemigoAnim.SetBool("isAttackingNear", true);
@@ -73,7 +74,7 @@ public class SlimeMovement : MonoBehaviour
 
     }
 
-    void enemigoBatalla()
+    public void enemigoBatalla()
     {
        if (!_enemigoAnim.GetBool("isDead"))
         {
@@ -104,7 +105,7 @@ public class SlimeMovement : MonoBehaviour
        
 
     }
-    void AtacarJugadorFar()
+    public void AtacarJugadorFar()
     {
         Mirar();
         _enemigoAnim.SetBool("isAttackingFar", true);
@@ -113,13 +114,13 @@ public class SlimeMovement : MonoBehaviour
 
     }
 
-    void Start()
+    public void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         enemigoBatalla();
     }
