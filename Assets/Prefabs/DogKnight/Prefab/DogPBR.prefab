@@ -160,7 +160,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7808219, y: 1}
+    m_SensorSize: {x: 1.7791096, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1556,6 +1556,36 @@ MonoBehaviour:
   _Player: {fileID: 8422892626600285392}
   _playerAnimator: {fileID: 8422892626592999198}
   speed: 0
+  onAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1898483642446638072, guid: 6e9956cd1d1459843bea1d45cfc0f1b2, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: sayAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1898483642446638072, guid: 6e9956cd1d1459843bea1d45cfc0f1b2, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: sayMoving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1203419273614738895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,6 +1612,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnim: {fileID: 8422892626592999198}
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1898483642446638072, guid: 6e9956cd1d1459843bea1d45cfc0f1b2, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: sayHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8422892626600285394
 GameObject:
   m_ObjectHideFlags: 0

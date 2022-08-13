@@ -17,11 +17,8 @@ public class EnemyMovement : MonoBehaviour
     public void Mirar()
     {
 
-        //Vector3 direccionMirar = _playerObj.transform.position - transform.position; 
         transform.LookAt(_playerObj.transform);
-        //transform.rotation = Quaternion.LookRotation(direccionMirar);
-
-        //Debug.Log("X Euler " + player.rotation.x + " / Y Euler " + player.rotation.y + " / Z Euler " + player.rotation.z);
+      
 
     }
 
@@ -40,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
         Mirar();
         _enemigoAnim.SetBool("isAlert", true);
         _enemigoAnim.SetBool("isRunning", true);
-        //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        
         transform.Translate(new Vector3(0, 0, 1) * (speed * 1.25f) * Time.deltaTime);
 
 
@@ -50,8 +47,8 @@ public class EnemyMovement : MonoBehaviour
     public void WalkAround()
     {
         Ray myRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, new Vector3(0, 0, 3), Color.red);
-        //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        Debug.DrawRay(transform.position, transform.forward, Color.red);
+        
         _enemigoAnim.SetBool("isAlert", false);
         _enemigoAnim.SetBool("isRunning", false);
         _enemigoAnim.SetBool("isAttackingNear", false);

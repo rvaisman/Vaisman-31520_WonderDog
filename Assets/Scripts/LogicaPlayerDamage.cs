@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LogicaPlayerDamage : MonoBehaviour
 {
     public Animator _playerAnim;
     public static int vida;
-    
+    [SerializeField] private UnityEvent onHit;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,19 +21,21 @@ public class LogicaPlayerDamage : MonoBehaviour
                 _playerAnim.SetBool("isWalking", false);
                 _playerAnim.SetBool("isGolpeado", true);
                 Debug.Log("Hit on Player");
+                onHit.Invoke(); 
                 GameManager.unicaInstancia.BajaVida(damage);
                 Debug.Log("Damage " + GameManager.unicaInstancia.GetVida());
 
             }
-            if (other.gameObject.tag == "Portal_a_LVL2")
+            /*if (other.gameObject.tag == "Portal_a_LVL2")
             {
                 GameManager.unicaInstancia.cargaEscena2();
 
-            }
+            } */
         }
         
     }
 
+    
 
     void Update()
     {  

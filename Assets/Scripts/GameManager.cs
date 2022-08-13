@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,44 @@ public class GameManager : MonoBehaviour
     public Slider saludPlayer;
     public int score;
     public int gold;
+    public int monedas;
+    public int enemigosInstanciados;
     
+
+    // ***********************************************************************************************
+    //          Entregable Eventos
+    // ***********************************************************************************************
+
+    public TextMeshProUGUI unityEventsTexto;
+    
+
+
+    
+
+    public void sayHit()
+    {
+        unityEventsTexto.text = "Hit";
+        Debug.Log("sayHit Llamado ");
+    }
+
+    public void sayAttack()
+    {
+        unityEventsTexto.text = "Attack";
+        Debug.Log("sayAttack Llamado");
+    }
+
+    public void sayMoving()
+    {
+        unityEventsTexto.text = "Moving";
+        Debug.Log("sayMoving Llamado");
+
+
+    }
+
+    // ***********************************************************************************************
+    //          Entregable Eventos
+    // ***********************************************************************************************
+
     public enum armaActual 
     {
         espada = 30, 
@@ -42,6 +80,30 @@ public class GameManager : MonoBehaviour
     bool menuSalirMostrado;
     float timeToGo;
 
+
+    // ***********************************************************************************************
+    //          Entregable Eventos C#
+    // ***********************************************************************************************
+
+    public void cuentaMonedas()
+    {
+        monedas += 1;
+        Debug.Log("CuentaMonedas() llamado");
+    }
+
+
+    public void cuentaEnemigos()
+    {
+        enemigosInstanciados += 1;
+        Debug.Log("CuentaEnemigos() llamado");
+    }
+
+    // ***********************************************************************************************
+    //          Entregable Eventos C#
+    // ***********************************************************************************************
+
+
+
     public void SumaPuntos( int puntaje)
     {
         score += puntaje;
@@ -64,8 +126,16 @@ public class GameManager : MonoBehaviour
         score = 0;
         timeToGo = 8f;
         gold = 0;
-        
+
+        EventoPortal.EntraPortal += cargaEscena2;
+        CoinObject.CoinEvent += cuentaMonedas;
+        SpawnEnemy.SpawnEnemyEvent += cuentaEnemigos;
+
+        unityEventsTexto.text = "Unity Events";
+
     }
+
+     
 
 
     public void BajaVida(int hp)
@@ -175,6 +245,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        
     }
 
     void updateVida()
@@ -205,9 +277,24 @@ public class GameManager : MonoBehaviour
     }
     public void cargaEscena2()
     {
-
+        Debug.Log("LoadScene() llamado");
         SceneManager.LoadScene("LVL 2");
+
+        // ***********************************************************************************************
+        //          Entregable Eventos C#: Este evento quedará llamado por el Portal
+        // ***********************************************************************************************
+
+
     }
+
+    private void OnDisable()
+    {
+        EventoPortal.EntraPortal -= cargaEscena2;
+        CoinObject.CoinEvent -= cuentaMonedas;
+        SpawnEnemy.SpawnEnemyEvent += cuentaEnemigos;
+
+    }
+
 
     public void Update()
     {

@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpawnEnemy : MonoBehaviour
 {
+
+    public static event Action SpawnEnemyEvent;
+
+
     public GameObject enemigo;
     public Transform spawnPoint;
 
@@ -14,7 +19,8 @@ public class SpawnEnemy : MonoBehaviour
     {
         Debug.Log("Inst");
         Instantiate(enemigo, spawnPoint.position, spawnPoint.rotation);
-
+        SpawnEnemyEvent?.Invoke();
+        Debug.Log("C# Event SpawnEnemy activado");
     }
 
 

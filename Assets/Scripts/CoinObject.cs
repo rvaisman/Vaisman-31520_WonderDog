@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CoinObject : MonoBehaviour
 {
-    
+
+    public static event Action CoinEvent;
+
     public Coin moneda;
     public int valor;
     public int cant;
@@ -21,11 +24,13 @@ public class CoinObject : MonoBehaviour
         transform.localScale = new Vector3(escala, escala, escala);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             GameManager.unicaInstancia.gold += valor * cant;
+            CoinEvent?.Invoke();
+            Debug.Log("C# Event CoinObject activado");
             Destroy(gameObject);
         }
 

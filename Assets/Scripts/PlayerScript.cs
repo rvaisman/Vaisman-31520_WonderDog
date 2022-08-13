@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour
 {
     public GameObject _Player;
     public Animator _playerAnimator;
-    public float speed; 
+    public float speed;
+
+    [SerializeField] private UnityEvent onAttack;
+    [SerializeField] private UnityEvent onPlayer;
 
     public void resetGolpeado()
     {
@@ -39,12 +43,14 @@ public class PlayerScript : MonoBehaviour
                 _playerAnimator.SetBool("isRunning", true);
                 _playerAnimator.SetBool("isWalking", false);
                 speed = 6;
+                onPlayer.Invoke();
             }
             else if (ver > 0 )
             {
                 _playerAnimator.SetBool("isWalking", true);
                 _playerAnimator.SetBool("isRunning", false);
                 speed = 2;
+                onPlayer.Invoke();
             }
 
             //Debug.Log("Hor: " + hor);
@@ -56,6 +62,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             _playerAnimator.SetBool("isAttacking1", true);
+            onAttack.Invoke();
 
         }
         else
@@ -70,7 +77,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         
     }
