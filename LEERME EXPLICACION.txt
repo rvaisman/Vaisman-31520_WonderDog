@@ -1,3 +1,45 @@
+EDIT: 13/08/2022: necesito ayuda con algo. Agregué todos los eventos de la siguiente forma
+
+Eventos C#: 
+
+SpawnEnemy.cs
+	- public static event Action SpawnEnemyEvent;
+	Suscrito en GameManage.cs en el Start
+	SpawnEnemy.SpawnEnemyEvent += cuentaEnemigos;
+	Se utiliza mediante Debug.Log
+
+CoinObject.cs
+	- public static event Action CoinEvent;
+	Suscrito en GameManage.cs en el Start
+	CoinObject.CoinEvent += cuentaMonedas;
+	Se utiliza mediante Debug.Log
+
+
+EventoPortal.cs
+	- public static event Action EntraPortal;
+	Suscrito en GameManage.cs en el Start
+	EventoPortal.EntraPortal += cargaEscena2;
+      Es el nuevo encargado de transportar el player a la segunda escena. Este permanecerá luego de la entrega 
+ 
+
+Eventos Unity
+
+LogicaPlayerDamage.cs
+	- [SerializeField] private UnityEvent onHit;
+
+PlayerScript.cs
+	-[SerializeField] private UnityEvent onAttack;
+	-[SerializeField] private UnityEvent onPlayer;
+
+Estos 3 son consumidos por el GamManager script.
+
+Puse a todos un debug.log y un TextMeshProUGUI para mostrarlos en pantalla
+
+El Debug.log funciona. Los eventos son llamados en el momento correcto
+
+EL TEXTMESHPROUGUI NO SE ME ACTUALIZA INGAME. Esta configurado igual que todos los otros. Cuando interrumpo la ejecución y vuelvo a ver el canvas en la ventana de Scene ahí me meustra el texto actualizado del ultimo evento que debió correr
+le di bastantews vueltas y googlee pero no doy pie con bola en esto.
+
 EDIT 9/8/22: Este es el texto que subi el sabado pero no llegue a entregar en la plataforma. Le agrego los edits a los cambios para esta entrega
 
 Nuevo proyecto
