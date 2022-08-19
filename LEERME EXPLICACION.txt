@@ -1,3 +1,16 @@
+EDIT 18/08/2022:	Se agregó un nivel LVL1 Edit que es donde estoy trabajando. Estoy armando un escenario mas acabado para el proyecto. 
+			LA ENTREGA ESTA EN ESTE NIVEL NUEVO
+			Se agregaron objetos para la entrega nada mas, no van a ser parte de la entrega final. 
+			Hay una viñeta todo el tiempo. Con V vas subiendo la intenswidad y cuando llega a tope (intensity.value = 1) empieza a bajar.
+			Se agregaron dos volumenes de postprocesado en la puerta del pueblo. El primero afecta la viñeta y el segundo le da un leve chromatic aberration
+			Apenas arrancás hay una reflection probe realtime
+			Se adjunta tambien el Package (Vaisman-31520_PostProceso.unitypackage). con todos los assets neuvos crecio bastante
+
+
+			 
+
+
+
 EDIT: 13/08/2022: necesito ayuda con algo. Agregué todos los eventos de la siguiente forma
 
 Eventos C#: 
