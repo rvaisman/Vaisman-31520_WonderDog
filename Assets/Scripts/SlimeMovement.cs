@@ -68,6 +68,7 @@ public class SlimeMovement : EnemyMovement
     public void AtacarJugadorCerca()
     {
         Mirar();
+        GameManager.unicaInstancia.enemigo = GameManager.enemyActual.slime;
         _enemigoAnim.SetBool("isAttackingNear", true);
         transform.Translate(new Vector3(0, 0, 1) * (speed * 0.25f) * Time.deltaTime);
 
@@ -108,6 +109,7 @@ public class SlimeMovement : EnemyMovement
     public void AtacarJugadorFar()
     {
         Mirar();
+        GameManager.unicaInstancia.enemigo = GameManager.enemyActual.slime;
         _enemigoAnim.SetBool("isAttackingFar", true);
         transform.Translate(new Vector3(0, 0, 1) * (speed * 0.5f) * Time.deltaTime);
 

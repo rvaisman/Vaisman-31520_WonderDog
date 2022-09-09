@@ -7,6 +7,12 @@ TagManager:
   - espadaColl
   - enemyColl
   - Portal_a_LVL2
+  - Interior
+  - Taverna
+  - SalidaTaverna
+  - DialogMan
+  - AlCastillo
+  - PortalBack
   layers:
   - Default
   - TransparentFX

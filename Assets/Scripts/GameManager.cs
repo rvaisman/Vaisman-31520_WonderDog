@@ -20,17 +20,19 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int monedas;
     public int enemigosInstanciados;
+    public GameObject destination1;
+    public GameObject dialogManager;
     
-
-    // ***********************************************************************************************
-    //          Entregable Eventos
-    // ***********************************************************************************************
 
     public TextMeshProUGUI unityEventsTexto;
-    
 
 
-    
+    bool gamblerCatFirst;
+    bool guard1First;
+    bool guard2First;
+    bool travellerFirst;
+    bool dukeFirst;
+
 
     public void sayHit()
     {
@@ -52,9 +54,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // ***********************************************************************************************
-    //          Entregable Eventos
-    // ***********************************************************************************************
 
     public enum armaActual 
     {
@@ -65,14 +64,15 @@ public class GameManager : MonoBehaviour
     public enum enemyActual
     {
         slime = 15,
-        shell = 30
+        shell = 30,
+        spider = 40
     };
 
     public static GameManager unicaInstancia;
     public Transform startPoint;
 
     public armaActual arma;
-    public static int vida;
+    public int vida;
 
     public enemyActual enemigo;
 
@@ -120,14 +120,25 @@ public class GameManager : MonoBehaviour
         SalirMenuTextMesh.enabled = false;
         GameOverText.enabled = false;
         estaPausado = false;
-        Instantiate(_player, startPoint);
+        //Instantiate(_player, new Vector3(59.19f, 2.54f, 59.91f), true);
+        Instantiate(_player, new Vector3(59.19f, 2.54f , 59.91f), Quaternion.Euler(0, -90, 0), this.transform);
+        //_player.transform.SetParent(this.transform);
         arma = armaActual.espada;
         vida = 1000;
         score = 0;
         timeToGo = 8f;
         gold = 0;
 
-        EventoPortal.EntraPortal += cargaEscena2;
+
+        gamblerCatFirst = false;
+        guard1First = false;
+        guard2First = false;
+        travellerFirst = false;
+        dukeFirst = false;
+
+        //EventoPortal.EntraPortal += cargaEscena2;
+        EventoMina.EntraMina += cargaEscena2;
+        
         CoinObject.CoinEvent += cuentaMonedas;
         SpawnEnemy.SpawnEnemyEvent += cuentaEnemigos;
 
@@ -177,6 +188,25 @@ public class GameManager : MonoBehaviour
                 PausaTextMesh.enabled = true;
                 saludPlayer.enabled = false;
                 ScoreTextMesh.enabled = false;
+                
+                if (SceneManager.GetSceneByName("LVL TAVERN").isLoaded)
+                {
+                    if (dialogManager == null)
+                    {
+                        dialogManager = GameObject.FindWithTag("DialogMan");
+                    }
+                        
+                    dialogManager.GetComponent<DialogueControl>().DialogoGamblerCatActive = false;
+                    Debug.Log("DialogoGamblerCatActive = " + dialogManager.GetComponent<DialogueControl>().DialogoGamblerCatActive);
+                    dialogManager.GetComponent<DialogueControl>().speechCatPanel.SetActive(false);
+                    Debug.Log("speechCatPanel = " + dialogManager.GetComponent<DialogueControl>().speechCatPanel.activeSelf );
+                    dialogManager.GetComponent<DialogueControl>().DialogoGuard1Active  = false;
+                    Debug.Log("DialogoGuard1Active = " + dialogManager.GetComponent<DialogueControl>().DialogoGuard1Active);
+                    dialogManager.GetComponent<DialogueControl>().speechGuard1Panel.SetActive(false);
+                    Debug.Log("speechGuard1Panel = " + dialogManager.GetComponent<DialogueControl>().speechGuard1Panel.activeSelf);
+                    dialogManager.GetComponent<DialogueControl>().DialogoGuard2Active = false;
+                    dialogManager.GetComponent<DialogueControl>().speechGuard2Panel.SetActive(false);
+                }
 
             }
 
@@ -229,6 +259,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void DestroyManager()
+    {
+        SceneManager.LoadScene("Menu");
+        //SalirMenuTextMesh.enabled = false;
+        //menuSalirMostrado = false;
+        //Time.timeScale = 1;
+        Destroy(gameObject);
+    }
 
     void Awake()
     {
@@ -246,7 +284,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        
+        _player.SetActive(true);
+        _player.GetComponent<PlayerScript>().enableMovement = true;
+        _player.GetComponent<PlayerScript>()._playerAnimator.enabled = true;
+        _player.GetComponent<PlayerScript>().enabled = true;
+        _player.GetComponent<Animator>().gameObject.SetActive(true);
+        //_player.GetComponent<Rigidbody>().WakeUp();
+        _player.GetComponent<PlayerScript>().near.enabled = true;
+        _player.GetComponent<PlayerScript>().far.enabled = true;
+      
     }
 
     void updateVida()
@@ -277,19 +323,67 @@ public class GameManager : MonoBehaviour
     }
     public void cargaEscena2()
     {
-        Debug.Log("LoadScene() llamado");
+        //Debug.Log("LoadScene() llamado");
         SceneManager.LoadScene("LVL 2");
+        _player.transform.position = new Vector3(60.23f, 1.8f, 59.55492f);
+        
 
-        // ***********************************************************************************************
-        //          Entregable Eventos C#: Este evento quedará llamado por el Portal
-        // ***********************************************************************************************
+
+    }
+
+    public void CargaTaverna()
+    {
+        //Debug.Log("LoadScene() llamado");
+
+        _player.GetComponent<PlayerScript>().enableMovement = false;
+        _player.GetComponent<Animator>().gameObject.SetActive(false);
+        _player.GetComponent<PlayerScript>()._playerAnimator.enabled = false;
+        _player.GetComponent<PlayerScript>().near.enabled = false;
+        _player.GetComponent<PlayerScript>().far.enabled = false;
+        //_player.GetComponent<Rigidbody>().Sleep();
+        //_player.GetComponent<Collider>().enabled = true;
+        //_player.GetComponent<Rigidbody>().velocity = Vector3.zero; 
+        _player.SetActive(false);
+        _player.GetComponent<PlayerScript>().enabled = false;
+        //_player.GetComponent<PlayerScript>().cc.enabled = false;
+        Time.timeScale = 0;
+
+        //_player.GetComponent<Rigidbody>().position = destination1.transform.position;
+        //_player.transform.position = destination1.transform.position;
+        Physics.SyncTransforms();
+        _player.gameObject.transform.position = destination1.transform.position;
+        Physics.SyncTransforms();
+
+       // if (!SceneManager.GetSceneByName("LVL TAVERN").isLoaded)
+       // {
+       //     SceneManager.LoadScene("LVL TAVERN", LoadSceneMode.Additive);
+       // }
+            
+            
+
+        _player.GetComponent<PlayerScript>().enabled = true;
+        Time.timeScale = 1;
+        _player.SetActive(true);
+        _player.GetComponent<Animator>().gameObject.SetActive(true);
+        //_player.GetComponent<Collider>().enabled = true;
+        //_player.GetComponent<Rigidbody>().WakeUp();
+        _player.GetComponent<PlayerScript>().near.enabled = true;
+        _player.GetComponent<PlayerScript>().far.enabled = true;
+        _player.GetComponent<PlayerScript>().enableMovement = true;
+        _player.GetComponent<PlayerScript>()._playerAnimator.enabled = true;
+        //_player.GetComponent<PlayerScript>().cc.enabled = true;
+
+
+
+
+
 
 
     }
 
     private void OnDisable()
     {
-        EventoPortal.EntraPortal -= cargaEscena2;
+        EventoMina.EntraMina -= cargaEscena2;
         CoinObject.CoinEvent -= cuentaMonedas;
         SpawnEnemy.SpawnEnemyEvent += cuentaEnemigos;
 
